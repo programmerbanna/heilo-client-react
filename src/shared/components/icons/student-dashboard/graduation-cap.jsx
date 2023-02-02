@@ -1,4 +1,4 @@
-export function GraduationCap(props: React.SVGAttributes<{}>) {
+export function GraduationCap(props) {
   return (
     <svg
       viewBox="0 0 640 512"

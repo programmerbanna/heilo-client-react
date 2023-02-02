@@ -1,4 +1,4 @@
-export function Laptop(props: React.SVGAttributes<{}>) {
+export function Laptop(props) {
   return (
     <svg
       viewBox="0 0 640 512"

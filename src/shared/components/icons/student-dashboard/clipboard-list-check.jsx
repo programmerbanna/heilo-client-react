@@ -1,4 +1,4 @@
-export function ClipBoardListCheck(props: React.SVGAttributes<{}>) {
+export function ClipBoardListCheck(props) {
   return (
     <svg
       viewBox="0 0 384 512"
