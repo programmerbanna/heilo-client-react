@@ -1,4 +1,4 @@
-export function StarIcon(props: React.SVGAttributes<{}>) {
+export function StarIcon(props) {
   return (
     <svg
       viewBox="0 0 576 512"

@@ -1,4 +1,4 @@
-export function Facebook(props: React.SVGAttributes<{}>) {
+export function Facebook(props) {
   return (
     <svg
       viewBox="0 0 512 512"

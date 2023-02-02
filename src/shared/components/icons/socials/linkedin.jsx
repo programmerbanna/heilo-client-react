@@ -1,4 +1,4 @@
-export function LinkedIn(props: React.SVGAttributes<{}>) {
+export function LinkedIn(props) {
   return (
     <svg
       viewBox="0 0 448 512"

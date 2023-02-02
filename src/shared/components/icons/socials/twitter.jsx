@@ -1,4 +1,4 @@
-export function Twitter(props: React.SVGAttributes<{}>) {
+export function Twitter(props) {
   return (
     <svg
       viewBox="0 0 24 24"
