@@ -12,7 +12,9 @@ const Layouts = ({ className }) => {
         <Outlet />
         <div className="w-full min-h-full bg-white">
           This white area is just for showcasing. for developing your ui just go
-          to file- src/shared/Layouts and simply comment this out
+          to file- src/shared/Layouts and simply comment this out.
+          <br />
+          <b>Note:</b>
         </div>
       </div>
     </div>
