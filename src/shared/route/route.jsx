@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 // custom imports
 import App from "App";
 import Layouts from "shared/components/Layouts";
+import subRoute from "./sub-routes";
 
 const route = createBrowserRouter([
   {
@@ -12,12 +13,7 @@ const route = createBrowserRouter([
       {
         path: "/",
         element: <Layouts />,
-        children: [
-          {
-            path: "/wll be added",
-            element: "will be added",
-          },
-        ],
+        children: subRoute,
       },
     ],
   },
