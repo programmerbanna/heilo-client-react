@@ -22,17 +22,17 @@ export default function fetchApi() {
   instance.defaults.headers.common["Access-Control-Allow-Credentials"] = "true";
 
   // setting request of axios interceptors
-  instance.interceptors.request.use(
-    (config) => {
-      if (accessToken) {
-        config.headers["Authorization"] = `Bearer ${accessToken}`;
-      }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
+  // instance.interceptors.request.use(
+  //   (config) => {
+  //     if (accessToken) {
+  //       config.headers["Authorization"] = `Bearer ${accessToken}`;
+  //     }
+  //     return config;
+  //   },
+  //   (error) => {
+  //     return Promise.reject(error);
+  //   }
+  // );
 
   // setting response of axios interceptors
   //   instance.interceptors.response.use(
