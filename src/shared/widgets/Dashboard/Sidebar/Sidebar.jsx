@@ -17,7 +17,7 @@ import { DashboardMenuItem } from "../subComponents";
 const Sidebar = () => {
   return (
     <>
-      <div className="flex flex-col w-">hello</div>
+      <div className="flex flex-col w-[253px]">hello</div>
     </>
   );
 };
