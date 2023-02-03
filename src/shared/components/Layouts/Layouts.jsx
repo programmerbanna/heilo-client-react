@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { clx } from "shared/configs";
 
 // custom imports
-import Sidebar from "shared/widgets/Dashboard/Sidebar";
+import Sidebar from "shared/widgets/dashboard/sidebar";
 
 const Layouts = ({ className }) => {
   return (
