@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 // custom imports
 import App from "App";
 import { SubRoute } from "./sub-routes";
-import { Layouts } from "shared/components/layouts";
+import Layouts from "shared/components/layouts/layouts";
 
 const route = createBrowserRouter([
   {
