@@ -5,7 +5,6 @@ import { RouterProvider } from "react-router-dom";
 
 // custom imports
 import route from "shared/route";
-import "shared/styles/index.css";
 
 // Create a client
 const queryClient = new QueryClient({
