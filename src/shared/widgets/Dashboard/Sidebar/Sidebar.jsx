@@ -10,7 +10,7 @@ import {
   EmailIcon,
   LogoutIcon,
 } from "shared/components/icons";
-import Image from "shared/components/Image";
+import Image from "shared/components/image";
 import { clx } from "shared/configs";
 import { DashboardMenuItem } from "../subComponents";
 
