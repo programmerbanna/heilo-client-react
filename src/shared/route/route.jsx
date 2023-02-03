@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 // custom imports
 import App from "App";
 import { Layouts } from "shared/components/layouts";
-import subRoute from "./sub-routes";
+import { SubRoute } from "./sub-routes";
 
 const route = createBrowserRouter([
   {
@@ -13,7 +13,7 @@ const route = createBrowserRouter([
       {
         path: "/",
         element: <Layouts />,
-        children: subRoute,
+        children: SubRoute,
       },
     ],
   },

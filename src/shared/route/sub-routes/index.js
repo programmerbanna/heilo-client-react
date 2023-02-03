@@ -1,2 +1,1 @@
-export { default } from "./subRoute";
-export * from "./subRoute";
+export { default as SubRoute } from "./subRoute";
