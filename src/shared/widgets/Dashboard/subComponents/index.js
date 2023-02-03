@@ -1,3 +1,3 @@
-import DashboardMenuItem from "./DashboardMenuItem";
+import DashboardMenuItem from "./dashboardMenuItem";
 
 export { DashboardMenuItem };
