@@ -5,11 +5,14 @@ const BtnSecondary = ({ label, onClick, className, link }) => {
   return (
     <>
       {link ? (
-        <Link to={link}>
-          <button onClick={onClick} className={clx("btnSecondary", className)}>
+        <button onClick={onClick} className={clx("btnSecondary", className)}>
+          <Link
+            to={link}
+            className="flex items-center justify-center w-full h-full"
+          >
             {label}
-          </button>
-        </Link>
+          </Link>
+        </button>
       ) : (
         <button onClick={onClick} className={clx("btnSecondary", className)}>
           {label}
