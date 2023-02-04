@@ -3,7 +3,9 @@ import React from "react";
 // custom imports
 import wave from "assets/img/opening-wave1.png";
 import { Image } from "shared/components/image";
-import { BtnSecondary } from "shared/components/button";
+import { Button } from "shared/components/button";
+import { StudentBook } from "shared/components/icons/welcome/student-book";
+import { TeacherTeaching } from "shared/components/icons/welcome/teacher-teaching";
 
 const WelcomeWave = () => {
   return (
@@ -16,12 +18,18 @@ const WelcomeWave = () => {
       />
 
       <div className="z-20 mt-20 absolute flex flex-col items-center gap-5 md:flex-row md:gap-[72px]">
-        <BtnSecondary
-          className="z-20"
+        <Button
+          className="z-20 w-[350px] bg-white h-[70px] rounded-[50px]"
           label="Student"
           link="/student/category"
+          icon={<StudentBook />}
         />
-        <BtnSecondary className="z-20" label="Teacher" link="/teacher" />
+        <Button
+          className="z-20 w-[350px] bg-white h-[70px] rounded-[50px]"
+          label="Teacher"
+          link="/teacher"
+          icon={<TeacherTeaching />}
+        />
       </div>
     </>
   );
