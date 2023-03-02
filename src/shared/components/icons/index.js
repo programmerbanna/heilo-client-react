@@ -20,28 +20,44 @@ import { CircleCrossIcon } from "./teacher-dashboard/circle-cross-icon";
 import { SearchIcon } from "./admin-teacher/search-icon";
 import { SendArrow } from "./student-dashboard/send-arrow";
 import { FileSharingIcon } from "./student-dashboard/file-sharing-icon";
+import HomeMenuIcon from "./admin-dashboard/home-menu-icon";
+import ContactMenuIcon from "./admin-dashboard/contact-menu-icon";
+import QuizMenuIcon from "./admin-dashboard/quiz-menu-icon";
+import WalletMenuIcon from "./admin-dashboard/wallet-menu-icon";
+import TeacherMenuIcon from "./admin-dashboard/teacher-menu-icon";
+import StudentMenuIcon from "./admin-dashboard/student-menu-icon";
+import { MobileMenuIcon } from "./student-dashboard/MobileMenuIcon";
+import { Close } from "./close";
 
 export {
-  Instagram,
-  Twitter,
-  Facebook,
-  LinkedIn,
-  Youtube,
-  Notification,
-  DashboardCardShapeLarge,
-  DashboardCardShapeSmall,
-  GraduationCap,
-  ClipBoardListCheck,
-  Laptop,
-  ProfileIcon,
-  EditProfileIcon,
-  EmailIcon,
-  LogoutIcon,
-  StarIcon,
-  WalletIcon,
-  CircleCheckIcon,
-  CircleCrossIcon,
-  SearchIcon,
-  SendArrow,
-  FileSharingIcon,
+    Close,
+    MobileMenuIcon,
+    Instagram,
+    Twitter,
+    Facebook,
+    LinkedIn,
+    Youtube,
+    Notification,
+    DashboardCardShapeLarge,
+    DashboardCardShapeSmall,
+    GraduationCap,
+    ClipBoardListCheck,
+    Laptop,
+    ProfileIcon,
+    EditProfileIcon,
+    EmailIcon,
+    LogoutIcon,
+    StarIcon,
+    WalletIcon,
+    CircleCheckIcon,
+    CircleCrossIcon,
+    SearchIcon,
+    SendArrow,
+    FileSharingIcon,
+    HomeMenuIcon,
+    ContactMenuIcon,
+    QuizMenuIcon,
+    WalletMenuIcon,
+    TeacherMenuIcon,
+    StudentMenuIcon,
 };

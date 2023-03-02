@@ -1,22 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { clx } from "shared/configs";
 
-const DashboardMenuItem = ({ title, path, icon }) => {
-  return (
-    <li className="relative dashboard-menu-item-active">
-      <div className="bg-primaryDark w-[20px] h-[20px] absolute top-[-20px] right-0 rounded-br-full" />
-      <Link
-        className="flex items-center p-3 rounded-tl-full rounded-bl-full bg-whitepl-7 group"
-        to={path}
-      >
-        <div className="mr-5 text-white group-hover:text-black/80">{icon}</div>
-        <p className="font-medium text-white capitalize group-hover:text-black/80">
-          {title}
-        </p>
-      </Link>
-      <div className="bg-primaryDark w-[20px] h-[20px] absolute bottom-[-20px] right-0 z-10 rounded-tr-full" />
-    </li>
-  );
+const DashboardMenuItem = ({ label, path, icon }) => {
+    const currentPath = useLocation();
+    return (
+        <li>
+            <NavLink to={path}>
+                <div
+                    className={clx(
+                        " w-full px-[31px] py-3 flex flex-row items-center gap-7",
+                        path === currentPath?.pathname
+                            ? "before:content-[''] before:p-2 before:absolute before:-top-4 before:right-0 before:w-1 before:h-1 before:bg-primaryDark before:rounded-br-full before:shadow-[6px_5px_0_5px_rgba(255,255,255)]   after:p-2 after:absolute after:-bottom-4 after:right-0 after:w-1 after:h-1 after:bg-primaryDark after:rounded-tr-full after:shadow-[6px_-3px_0_3px_rgba(255,255,255)] bg-white  rounded-l-full relative"
+                            : "text-white hover:text-black"
+                    )}
+                >
+                    {icon}
+                    <span> {label}</span>
+                </div>
+            </NavLink>
+        </li>
+    );
 };
 
 export default DashboardMenuItem;
