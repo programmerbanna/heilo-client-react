@@ -6,6 +6,8 @@ import { SubRoute } from "./sub-routes";
 import Layouts from "shared/components/layouts/layouts";
 import { Welcome } from "views/welcome";
 import { StudentPhaseOne, StudentPhaseTwo } from "views/student/student-phase";
+import Login from "views/authentication/login";
+import Registration from './../../views/authentication/registration';
 
 const route = createBrowserRouter([
   {
@@ -23,6 +25,14 @@ const route = createBrowserRouter([
       {
         path: "/student/student-phase-two",
         element: <StudentPhaseTwo />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "registration",
+        element: <Registration />,
       },
       {
         path: "/",
