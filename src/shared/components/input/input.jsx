@@ -1,6 +1,7 @@
 import Select from "react-select";
 export const InputBox = ({
-  type = "text",
+  appearance,
+  type ,
   name,
   placeholder,
   onChange,
@@ -10,8 +11,9 @@ export const InputBox = ({
 }) => {
   return (
     <input
+      appearance="none"
       onChange={onChange}
-      className={`form-input ${className}`}
+      className={`form-input ${className}, `}
       type={type}
       name={name}
       placeholder={placeholder}

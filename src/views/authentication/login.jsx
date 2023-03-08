@@ -4,11 +4,11 @@
 
 import { useState } from "react";
 
-import { InputBox, } from "shared/components"
-import { toast } from "react-hot-toast";
+
+import { toast ,Toaster} from "react-hot-toast";
 import { Button } from 'shared/components/button';
-import { Toaster } from "react-hot-toast";
 import { Link } from 'react-router-dom';
+import { InputBox } from "shared/components/input/input";
 
 // const Props = {};
 

@@ -28,8 +28,10 @@ import TeacherMenuIcon from "./admin-dashboard/teacher-menu-icon";
 import StudentMenuIcon from "./admin-dashboard/student-menu-icon";
 import { MobileMenuIcon } from "./student-dashboard/MobileMenuIcon";
 import { Close } from "./close";
+import { ArrowDown } from "./arrowDown";
 
 export {
+  ArrowDown,
     Close,
     MobileMenuIcon,
     Instagram,
