@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //internal imports
-import { api } from "env";
+import { API } from "env";
 
 export default function fetchApi() {
   let accessToken;
@@ -10,7 +10,7 @@ export default function fetchApi() {
   //   const refreshToken = Storage("refreshToken");
 
   const instance = axios.create({
-    baseURL: api,
+    baseURL: API,
     withCredentials: false,
   });
 
