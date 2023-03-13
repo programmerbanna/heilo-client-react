@@ -56,6 +56,37 @@ export const studentMenus = [
   },
 ];
 
+export const teacherMenus = [
+  
+ 
+  {
+    label: "Dashboard",
+    icon: <Laptop width="28" />,
+    path: "/teacher/dashboard",
+  },
+  {
+    label: "Wallet",
+    icon: <WalletIcon width="26" />,
+    path: "/teacher/wallet",
+  },
+  {
+    label: "Profile",
+    icon: <ProfileIcon width="22" />,
+    path: "/teacher/profile",
+  },
+  {
+    label: "Edit Profile",
+    icon: <EditProfileIcon width="30" />,
+    path: "/teacher/edit-profile",
+  },
+  {
+    label: "Inbox",
+    icon: <EmailIcon width="26" />,
+    path: "/teacher/inbox",
+  }, 
+];
+
+
 export const adminMenus = [
   {
     icon: <HomeMenuIcon width="26" />,

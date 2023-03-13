@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
+import UserProvider from "shared/hooks/contextApi/useAuth";
 
 // custom imports
 import route from "shared/route";
@@ -22,7 +23,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={route} />
+    <UserProvider> 
+        <RouterProvider router={route} />
+    </UserProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );
