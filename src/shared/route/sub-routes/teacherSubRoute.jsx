@@ -2,7 +2,8 @@ import TeacherDashboard from "views/teacher/features/teacherDashboard";
 import TeacherProfile from "views/teacher/features/teacherProfile";
 import TeacherEditProfile from "views/teacher/features/teacherEditProfile";
 import TeacherWallet from "views/teacher/features/teacherWallet";
-import { TeacherInbox } from "views/teacher/features/teacherInbox";
+import TeacherInbox from "views/teacher/features/teacherInbox";
+
 
 
 const teacherSubRoute = [
