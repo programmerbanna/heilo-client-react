@@ -7,6 +7,7 @@ import { Image } from "shared/components/image";
 import { DashboardMenuItem } from "../subComponents";
 import Logo from "assets/img/logo-white.png";
 import { studentMenus } from "shared/configs";
+import { teacherMenus} from "shared/configs";
 
 const Sidebar = ({ setOpen }) => {
     return (
@@ -26,8 +27,8 @@ const Sidebar = ({ setOpen }) => {
                 </div>
                 <nav className="pl-[21px] h-full w-full gap-1 flex flex-col justify-center ">
                     <ul className="flex flex-col ">
-                        {studentMenus &&
-                            studentMenus?.map((element, i) => (
+                        {teacherMenus &&
+                            teacherMenus?.map((element, i) => (
                                 <DashboardMenuItem key={i} {...element} />
                             ))}
                     </ul>
