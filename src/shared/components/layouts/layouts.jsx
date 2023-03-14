@@ -18,7 +18,6 @@ const Layouts = ({ className }) => {
   const { state } = useAuth();
   const { user } = state;
 
-  console.log("true student", user?.role);
   useEffect(() => {
     if (user?.role === "student") {
       navigate("/student/dashboard");
