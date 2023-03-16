@@ -12,11 +12,11 @@ const App = () => {
   const { state } = useAuth();
   const { user } = state;
 
-  useEffect(() => {
-    if (user?.role !== "student" && user?.role !== "teacher") {
-      navigate("/login");
-    }
-  }, [state, user, navigate]);
+//   useEffect(() => {
+//     if (user?.role !== "student" && user?.role !== "teacher") {
+//       navigate("/login");
+//     }
+//   }, [state, user, navigate]);
   return (
     <>
       <Outlet />
