@@ -7,8 +7,10 @@ import { Image } from "shared/components/image";
 import { DashboardMenuItem } from "../subComponents";
 import Logo from "assets/img/logo-white.png";
 import { studentMenus, teacherMenus } from "shared/configs";
+import useUserStatus from "shared/hooks/useUserStatus";
 
 const Sidebar = ({ setOpen }) => {
+  const userRole = useUserStatus();
   return (
     <>
       <div className="flex flex-col w-full md:w-[253px] h-full">
@@ -26,9 +28,15 @@ const Sidebar = ({ setOpen }) => {
         </div>
         <nav className="pl-[21px] h-full w-full gap-1 flex flex-col justify-center ">
           <ul className="flex flex-col ">
-            {studentMenus.map((element, i) => (
-              <DashboardMenuItem key={i} {...element} />
-            ))}
+            {userRole === "student"
+              ? studentMenus.map((element, i) => (
+                  <DashboardMenuItem key={i} {...element} />
+                ))
+              : userRole === "teacher"
+              ? teacherMenus.map((element, i) => (
+                  <DashboardMenuItem key={i} {...element} />
+                ))
+              : null}
           </ul>
         </nav>
         <div className="pl-[21px] md:pl-0  w-full h-full flex md:justify-center items-end">
