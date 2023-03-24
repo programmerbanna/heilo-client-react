@@ -2,18 +2,10 @@ import { useState } from "react";
 
 import { toast, Toaster } from "react-hot-toast";
 import { Button } from "shared/components/button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { InputBox } from "shared/components/input/input";
-import { usePostData } from "shared/hooks/useFetch";
-import { FETCH_USER_SUCCESS } from "shared/state/userState/actionTypes";
-import { useAuth } from "shared/hooks/contextApi/useAuth";
 
 const Login = (Props) => {
-  const { mutate } = usePostData("/user/login", "/user/login");
-  const navigate = useNavigate();
-
-  const { dispatch } = useAuth();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -30,18 +22,17 @@ const Login = (Props) => {
       password: password,
     };
 
-    mutate(data, {
-      onSuccess: ({ data }) => {
-        const { data: loggedInData } = data;
-        toast.success("Login successfull");
-        dispatch({ type: FETCH_USER_SUCCESS, payload: loggedInData?.user });
+    // mutate(data, {
+    //   onSuccess: ({ data }) => {
+    //     const { data: loggedInData } = data;
+    //     toast.success("Login successfull");
 
-        navigate("/");
-      },
-      onError: (error) => {
-        toast.error(`Something went wrong: ${error}`);
-      },
-    });
+    //     navigate("/");
+    //   },
+    //   onError: (error) => {
+    //     toast.error(`Something went wrong: ${error}`);
+    //   },
+    // });
 
     toast.dismiss();
   };

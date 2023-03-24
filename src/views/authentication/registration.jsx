@@ -5,11 +5,8 @@ import { Toaster } from "react-hot-toast";
 import { ArrowDown } from "shared/components/icons";
 import { Button } from "shared/components/button";
 import { CheckBox, InputBox, SelectBox } from "shared/components/input/input";
-import { usePostData } from "shared/hooks/useFetch";
 
 const Registration = () => {
-  const { mutate } = usePostData("/user/register", "/user/register");
-
   const [name, setName] = useState("");
   const [gender, setGender] = useState("male");
   const [email, setEmail] = useState("");
@@ -51,14 +48,6 @@ const Registration = () => {
       phoneNumber: number,
     };
 
-    mutate(data, {
-      onSuccess: () => {
-        toast.success("Registration successfull");
-      },
-      onError: (error) => {
-        toast.error(`Something went wrong: ${error}`);
-      },
-    });
     toast.dismiss();
   };
 

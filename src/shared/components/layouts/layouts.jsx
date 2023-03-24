@@ -7,7 +7,6 @@ import { Sidebar } from "shared/widgets/dashboard/sidebar";
 import { Image } from "../image";
 import userImage from "assets/img/teacher.png";
 import { MobileMenuIcon } from "../icons";
-import { useAuth } from "shared/hooks/contextApi/useAuth";
 
 const Layouts = ({ className }) => {
   const route = useLocation();
@@ -15,18 +14,15 @@ const Layouts = ({ className }) => {
 
   const navigate = useNavigate();
 
-  const { state } = useAuth();
-  const { user } = state;
-
-  useEffect(() => {
-    if (user?.role === "student") {
-      navigate("/student/dashboard");
-    } else if (user?.role === "teacher") {
-      navigate("/teacher/dashboard");
-    } else if (user?.role !== "student" && user?.role !== "teacher") {
-      navigate("/login");
-    }
-  }, [state, user, navigate]);
+  // useEffect(() => {
+  //   if (user?.role === "student") {
+  //     navigate("/student/dashboard");
+  //   } else if (user?.role === "teacher") {
+  //     navigate("/teacher/dashboard");
+  //   } else if (user?.role !== "student" && user?.role !== "teacher") {
+  //     navigate("/login");
+  //   }
+  // }, [state, user, navigate]);
 
   useEffect(() => {
     setToggleNavigation((pre) => !pre);

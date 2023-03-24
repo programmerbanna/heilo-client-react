@@ -6,20 +6,9 @@ import { Close, LogoutIcon } from "shared/components/icons";
 import { Image } from "shared/components/image";
 import { DashboardMenuItem } from "../subComponents";
 import Logo from "assets/img/logo-white.png";
-import { studentMenus } from "shared/configs";
-import { teacherMenus } from "shared/configs";
-import { useAuth } from "shared/hooks/contextApi/useAuth";
+import { studentMenus, teacherMenus } from "shared/configs";
 
 const Sidebar = ({ setOpen }) => {
-  const { state } = useAuth();
-  const user = state;
-
-  const [userInfo, setUserInfo] = useState({});
-
-  useEffect(() => {
-    setUserInfo(user);
-  }, [state, user]);
-
   return (
     <>
       <div className="flex flex-col w-full md:w-[253px] h-full">
@@ -37,13 +26,9 @@ const Sidebar = ({ setOpen }) => {
         </div>
         <nav className="pl-[21px] h-full w-full gap-1 flex flex-col justify-center ">
           <ul className="flex flex-col ">
-            {userInfo &&
-              (userInfo?.user?.role === "student"
-                ? studentMenus
-                : userInfo?.user?.role === "teacher"
-                ? teacherMenus
-                : []
-              ).map((element, i) => <DashboardMenuItem key={i} {...element} />)}
+            {studentMenus.map((element, i) => (
+              <DashboardMenuItem key={i} {...element} />
+            ))}
           </ul>
         </nav>
         <div className="pl-[21px] md:pl-0  w-full h-full flex md:justify-center items-end">
