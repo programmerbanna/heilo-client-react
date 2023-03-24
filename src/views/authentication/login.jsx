@@ -44,7 +44,7 @@ const Login = (Props) => {
       toast.error(data?.error);
     }
     if (isSuccess) {
-      // navigate("/");
+      navigate("/");
     }
   }, [isSuccess, navigate, isError, error, loginData]);
 
