@@ -7,12 +7,15 @@ import { InputBox } from "shared/components/input/input";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserLoginMutation } from "shared/redux/features/auth/authApi";
+import useUserStatus from "shared/hooks/useUserStatus";
 
 const Login = (Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+  const userRole = useUserStatus();
 
   // redux events
   const [
@@ -44,9 +47,28 @@ const Login = (Props) => {
       toast.error(data?.error);
     }
     if (isSuccess) {
-      navigate("/");
+      const { data } = loginData;
+      const { user } = data;
+
+      if (user?.role === "student") {
+        navigate("/student/dashboard");
+      } else if (user?.role === "teacher") {
+        navigate("/teacher/dashboard");
+      } else if (user?.role === "admin") {
+        navigate("/admin/dashboard");
+      }
     }
   }, [isSuccess, navigate, isError, error, loginData]);
+
+  useEffect(() => {
+    if (userRole === "student") {
+      navigate("/student/dashboard");
+    } else if (userRole === "teacher") {
+      navigate("/teacher/dashboard");
+    } else if (userRole === "admin") {
+      navigate("/admin/dashboard");
+    }
+  }, [navigate, userRole]);
 
   return (
     <div className="relative flex items-center justify-center h-screen overflow-hidden">

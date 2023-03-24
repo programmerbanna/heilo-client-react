@@ -12,21 +12,10 @@ const Layouts = ({ className }) => {
   const route = useLocation();
   const [toggleNavigation, setToggleNavigation] = useState(false);
 
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (user?.role === "student") {
-  //     navigate("/student/dashboard");
-  //   } else if (user?.role === "teacher") {
-  //     navigate("/teacher/dashboard");
-  //   } else if (user?.role !== "student" && user?.role !== "teacher") {
-  //     navigate("/login");
-  //   }
-  // }, [state, user, navigate]);
-
   useEffect(() => {
     setToggleNavigation((pre) => !pre);
   }, [route?.pathname]);
+
   return (
     <div className="md:max-w-[calc(1673px+253px)] mx-auto md:bg-primaryDark min-h-screen flex flex-col md:flex-row relative">
       <div className="block md:hidden z-50 sticky top-0">

@@ -8,6 +8,7 @@ import { CheckBox, InputBox, SelectBox } from "shared/components/input/input";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserRegisterMutation } from "shared/redux/features/auth/authApi";
+import useUserStatus from "shared/hooks/useUserStatus";
 
 const Registration = () => {
   const [name, setName] = useState("");
@@ -25,6 +26,8 @@ const Registration = () => {
     userRegister,
     { isLoading: loading, isError, isSuccess, data, error },
   ] = useUserRegisterMutation();
+
+  const userRole = useUserStatus();
 
   const options = [
     { value: "male", label: "Male" },
@@ -77,6 +80,16 @@ const Registration = () => {
       }, 2000);
     }
   }, [isSuccess, navigate, isError, error]);
+
+  useEffect(() => {
+    if (userRole === "student") {
+      navigate("/student/dashboard");
+    } else if (userRole === "teacher") {
+      navigate("/teacher/dashboard");
+    } else if (userRole === "admin") {
+      navigate("/admin/dashboard");
+    }
+  }, [navigate, userRole]);
 
   return (
     <>
