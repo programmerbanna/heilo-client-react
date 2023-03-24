@@ -5,9 +5,9 @@ import { Toaster } from "react-hot-toast";
 import { ArrowDown } from "shared/components/icons";
 import { Button } from "shared/components/button";
 import { CheckBox, InputBox, SelectBox } from "shared/components/input/input";
-import { useUserRegisterMutation } from "shared/redux/features/authSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUserRegisterMutation } from "shared/redux/features/auth/authApi";
 
 const Registration = () => {
   const [name, setName] = useState("");

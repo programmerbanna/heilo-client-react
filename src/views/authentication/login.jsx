@@ -4,9 +4,9 @@ import { toast, Toaster } from "react-hot-toast";
 import { Button } from "shared/components/button";
 import { Link } from "react-router-dom";
 import { InputBox } from "shared/components/input/input";
-import { useUserLoginMutation } from "shared/redux/features/authSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUserLoginMutation } from "shared/redux/features/auth/authApi";
 
 const Login = (Props) => {
   const [email, setEmail] = useState("");
@@ -15,8 +15,10 @@ const Login = (Props) => {
   const navigate = useNavigate();
 
   // redux events
-  const [userLogin, { isLoading: loading, isError, error, isSuccess }] =
-    useUserLoginMutation();
+  const [
+    userLogin,
+    { isLoading: loading, isError, error, isSuccess, data: loginData },
+  ] = useUserLoginMutation();
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -42,9 +44,9 @@ const Login = (Props) => {
       toast.error(data?.error);
     }
     if (isSuccess) {
-      navigate("/");
+      // navigate("/");
     }
-  }, [isSuccess, navigate, isError, error]);
+  }, [isSuccess, navigate, isError, error, loginData]);
 
   return (
     <div className="relative flex items-center justify-center h-screen overflow-hidden">
