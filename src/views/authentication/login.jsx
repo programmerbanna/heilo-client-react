@@ -4,10 +4,19 @@ import { toast, Toaster } from "react-hot-toast";
 import { Button } from "shared/components/button";
 import { Link } from "react-router-dom";
 import { InputBox } from "shared/components/input/input";
+import { useUserLoginMutation } from "shared/redux/features/authSlice";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = (Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  // redux events
+  const [userLogin, { isLoading: loading, isError, error, isSuccess }] =
+    useUserLoginMutation();
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -22,20 +31,20 @@ const Login = (Props) => {
       password: password,
     };
 
-    // mutate(data, {
-    //   onSuccess: ({ data }) => {
-    //     const { data: loggedInData } = data;
-    //     toast.success("Login successfull");
-
-    //     navigate("/");
-    //   },
-    //   onError: (error) => {
-    //     toast.error(`Something went wrong: ${error}`);
-    //   },
-    // });
+    userLogin(data);
 
     toast.dismiss();
   };
+
+  useEffect(() => {
+    if (isError) {
+      const { data } = error;
+      toast.error(data?.error);
+    }
+    if (isSuccess) {
+      navigate("/");
+    }
+  }, [isSuccess, navigate, isError, error]);
 
   return (
     <div className="relative flex items-center justify-center h-screen overflow-hidden">
@@ -60,7 +69,7 @@ const Login = (Props) => {
               onClick={handleLogin}
               //   icon="uil uil-sign-in-alt"
               className="p-2 text-white rounded-md bg-primaryDark"
-              label="Login"
+              label={loading ? "Loading...." : "Login"}
             ></Button>
             <Link
               className="cursor-pointer text-textSecondary my-7"

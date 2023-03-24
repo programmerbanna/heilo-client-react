@@ -5,6 +5,9 @@ import { Toaster } from "react-hot-toast";
 import { ArrowDown } from "shared/components/icons";
 import { Button } from "shared/components/button";
 import { CheckBox, InputBox, SelectBox } from "shared/components/input/input";
+import { useUserRegisterMutation } from "shared/redux/features/authSlice";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const [name, setName] = useState("");
@@ -14,6 +17,14 @@ const Registration = () => {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [conditionsAgreed, setConditionsAgreed] = useState(false);
+
+  const navigate = useNavigate();
+
+  // redux events
+  const [
+    userRegister,
+    { isLoading: loading, isError, isSuccess, data, error },
+  ] = useUserRegisterMutation();
 
   const options = [
     { value: "male", label: "Male" },
@@ -48,8 +59,24 @@ const Registration = () => {
       phoneNumber: number,
     };
 
+    userRegister(data);
+
     toast.dismiss();
   };
+
+  useEffect(() => {
+    if (isError) {
+      const { data } = error;
+      toast.error(data?.error);
+    }
+    if (isSuccess) {
+      toast.success("User successfully created! you'll redirect to login page");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    }
+  }, [isSuccess, navigate, isError, error]);
 
   return (
     <>
@@ -106,7 +133,7 @@ const Registration = () => {
                 onClick={handleRegister}
                 // icon={ArrowDown}
                 className="p-2 mt-2 text-white rounded bg-primaryLight"
-                label="Register"
+                label={loading ? "Processing" : "Register"}
               />
               <Toaster position="bottom-right" reverseOrder={false} />
             </div>
