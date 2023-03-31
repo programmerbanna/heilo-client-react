@@ -11,7 +11,7 @@ const App = () => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    setSocket(io("ws://localhost:5000"));
+    // setSocket(io("ws://localhost:5000"));
   }, []);
 
   useEffect(() => {
