@@ -9,51 +9,49 @@ const authApi = heiloApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
-          const result = await queryFulfilled;
+      // async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      //   try {
+      //     const result = await queryFulfilled;
 
-          localStorage.setItem(
-            "auth",
-            JSON.stringify({
-              token: result?.data?.data?.token,
-              user: result?.data?.data?.user,
-            })
-          );
+      //     localStorage.setItem(
+      //       "auth",
+      //       JSON.stringify({
+      //         token: result?.data?.data?.token,
+      //         user: result?.data?.data?.user,
+      //       })
+      //     );
 
-          dispatch(
-            userLoggedIn({
-              token: result?.data?.data?.token,
-              user: result?.data?.data?.user,
-            })
-          );
-        } catch (error) {}
-      },
+      //     dispatch(
+      //       userLoggedIn({
+      //         token: result?.data?.data?.token,
+      //         user: result?.data?.data?.user,
+      //       })
+      //     );
+      //   } catch (error) {}
+      // },
     }),
     userLogin: builder.mutation({
       query: (data) => ({
-        url: "/user/login",
+        url: "/signin",
         method: "POST",
         body: data,
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
-          const result = await queryFulfilled;
+          const { data } = await queryFulfilled;
 
           localStorage.setItem(
             "auth",
             JSON.stringify({
-              token: result?.data?.data?.token,
-              user: result?.data?.data?.user,
+              user: data?.user,
             })
           );
 
-          dispatch(
-            userLoggedIn({
-              token: result?.data?.data?.token,
-              user: result?.data?.data?.user,
-            })
-          );
+          // dispatch(
+          //   userLoggedIn({
+          //     user: result?.data?.data?.user,
+          //   })
+          // );
         } catch (error) {}
       },
     }),

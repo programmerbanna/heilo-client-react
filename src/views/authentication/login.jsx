@@ -10,8 +10,8 @@ import { useUserLoginMutation } from "shared/redux/features/auth/authApi";
 import useUserStatus from "shared/hooks/useUserStatus";
 
 const Login = (Props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("hasanulhaquebanna@gmail.com");
+  const [password, setPassword] = useState("Example#1");
 
   const navigate = useNavigate();
 
@@ -47,28 +47,28 @@ const Login = (Props) => {
       toast.error(data?.error);
     }
     if (isSuccess) {
-      const { data } = loginData;
-      const { user } = data;
+      const { user } = loginData;
 
-      if (user?.role === "student") {
-        navigate("/student/dashboard");
-      } else if (user?.role === "teacher") {
-        navigate("/teacher/dashboard");
-      } else if (user?.role === "admin") {
-        navigate("/admin/dashboard");
-      }
+      console.log(user);
+      // if (user?.role === "student") {
+      //   navigate("/student/dashboard");
+      // } else if (user?.role === "teacher") {
+      //   navigate("/teacher/dashboard");
+      // } else if (user?.role === "admin") {
+      //   navigate("/admin/dashboard");
+      // }
     }
   }, [isSuccess, navigate, isError, error, loginData]);
 
-  useEffect(() => {
-    if (userRole === "student") {
-      navigate("/student/dashboard");
-    } else if (userRole === "teacher") {
-      navigate("/teacher/dashboard");
-    } else if (userRole === "admin") {
-      navigate("/admin/dashboard");
-    }
-  }, [navigate, userRole]);
+  // useEffect(() => {
+  //   if (userRole === "student") {
+  //     navigate("/student/dashboard");
+  //   } else if (userRole === "teacher") {
+  //     navigate("/teacher/dashboard");
+  //   } else if (userRole === "admin") {
+  //     navigate("/admin/dashboard");
+  //   }
+  // }, [navigate, userRole]);
 
   return (
     <div className="relative flex items-center justify-center h-screen overflow-hidden">
@@ -80,12 +80,14 @@ const Login = (Props) => {
               className="pb-5"
               onChange={(e) => setEmail(e.target.value)}
               type="email"
+              value={email}
               placeholder="Email"
             />
             <InputBox
               className="pb-5 mt-5"
               onChange={(e) => setPassword(e.target.value)}
               type="password"
+              value={password}
               placeholder="Password"
             />
 
