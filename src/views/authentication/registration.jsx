@@ -8,7 +8,7 @@ import { CheckBox, InputBox, SelectBox } from "shared/components/input/input";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserRegisterMutation } from "shared/redux/features/auth/authApi";
-import useUserStatus from "shared/hooks/useUserStatus";
+import useUserStatus from "shared/hooks/useUserRole";
 
 const Registration = () => {
   const [name, setName] = useState("");

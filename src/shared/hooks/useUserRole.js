@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const useUserStatus = () => {
+const useUserRole = () => {
   const [userType, setUserType] = useState(undefined);
   const auth = useSelector((state) => state?.auth);
 
@@ -13,4 +13,4 @@ const useUserStatus = () => {
   return userType;
 };
 
-export default useUserStatus;
+export default useUserRole;

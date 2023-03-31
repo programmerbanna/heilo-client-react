@@ -7,7 +7,7 @@ import { Image } from "shared/components/image";
 import { DashboardMenuItem } from "../subComponents";
 import Logo from "assets/img/logo-white.png";
 import { studentMenus, teacherMenus } from "shared/configs";
-import useUserStatus from "shared/hooks/useUserStatus";
+import useUserStatus from "shared/hooks/useUserRole";
 
 const Sidebar = ({ setOpen }) => {
   const userRole = useUserStatus();

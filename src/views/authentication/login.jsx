@@ -7,7 +7,10 @@ import { InputBox } from "shared/components/input/input";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserLoginMutation } from "shared/redux/features/auth/authApi";
-import useUserStatus from "shared/hooks/useUserStatus";
+import useUserStatus from "shared/hooks/useUserRole";
+import socket from "socket.config";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "shared/redux/features/socket/socketSlice";
 
 const Login = (Props) => {
   const [email, setEmail] = useState("hasanulhaquebanna@gmail.com");
@@ -18,10 +21,12 @@ const Login = (Props) => {
   const userRole = useUserStatus();
 
   // redux events
+  const { user: socketUser } = useSelector((state) => state.socket);
   const [
     userLogin,
     { isLoading: loading, isError, error, isSuccess, data: loginData },
   ] = useUserLoginMutation();
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -44,12 +49,11 @@ const Login = (Props) => {
   useEffect(() => {
     if (isError) {
       const { data } = error;
-      toast.error(data?.error);
+      toast.error(data?.message);
     }
     if (isSuccess) {
       const { user } = loginData;
-
-      console.log(user);
+      socket.emit("addUser", user?._id);
       // if (user?.role === "student") {
       //   navigate("/student/dashboard");
       // } else if (user?.role === "teacher") {

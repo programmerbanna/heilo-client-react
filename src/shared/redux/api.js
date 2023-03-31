@@ -4,7 +4,7 @@ import { API_URL } from "env";
 export const heiloApi = createApi({
   reducerPath: "heiloApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: API_URL,
+    baseUrl: API_URL + "api/v1",
     prepareHeaders: async (headers, { getState, endpoint }) => {
       const token = getState()?.auth?.token;
       if (token) {
