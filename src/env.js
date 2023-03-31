@@ -1,3 +1,4 @@
-const { REACT_APP_SERVER_URL } = process.env;
+const { REACT_APP_SERVER_URL, REACT_APP_CLIENT_URL } = process.env;
 
 export const API_URL = REACT_APP_SERVER_URL;
+export const CLIENT_URL = REACT_APP_CLIENT_URL;
