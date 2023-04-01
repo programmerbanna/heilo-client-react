@@ -6,7 +6,7 @@ const useUserRole = () => {
   const auth = useSelector((state) => state?.auth);
 
   useEffect(() => {
-    if (auth?.token && auth?.user) {
+    if (auth?.user) {
       setUserType(auth?.user?.role);
     }
   }, [auth]);

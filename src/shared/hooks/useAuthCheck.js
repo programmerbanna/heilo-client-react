@@ -11,7 +11,7 @@ export default function useAuthCheck() {
 
     if (localAuth) {
       const auth = JSON.parse(localAuth);
-      if (auth?.token && auth?.user) {
+      if (auth?.user) {
         dispatch(
           userLoggedIn({
             user: auth.user,

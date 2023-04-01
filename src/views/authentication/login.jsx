@@ -54,6 +54,11 @@ const Login = (Props) => {
     if (isSuccess) {
       const { user } = loginData;
       socket.emit("addUser", user?._id);
+      socket.on("getUsers", (users) => {
+        console.log(users);
+      });
+
+      // conditions of user role
       // if (user?.role === "student") {
       //   navigate("/student/dashboard");
       // } else if (user?.role === "teacher") {

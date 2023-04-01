@@ -1,3 +1,4 @@
+// internal imports
 import heiloApi from "shared/redux/api";
 import { userLoggedIn } from "./authSlice";
 
@@ -5,7 +6,7 @@ const authApi = heiloApi.injectEndpoints({
   endpoints: (builder) => ({
     userRegister: builder.mutation({
       query: (data) => ({
-        url: "/user/register",
+        url: "/register",
         method: "POST",
         body: data,
       }),
@@ -47,11 +48,11 @@ const authApi = heiloApi.injectEndpoints({
             })
           );
 
-          // dispatch(
-          //   userLoggedIn({
-          //     user: result?.data?.data?.user,
-          //   })
-          // );
+          dispatch(
+            userLoggedIn({
+              user: data?.user,
+            })
+          );
         } catch (error) {}
       },
     }),
