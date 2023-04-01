@@ -12,9 +12,9 @@ const ChatUser = () => {
   };
 
   // redux events
-  const { isError, isLoading, data: conversations } = useGetConversationQuery();
+  const { data: conversations } = useGetConversationQuery();
 
-  console.log("conversations", conversations);
+  console.log(conversations);
   return (
     <>
       <div className="w-full px-5 bg-[#c4c4c4] h-[45px] rounded-[30px] flex justify-center items-center">
@@ -30,18 +30,27 @@ const ChatUser = () => {
       </div>
       <div className=" my-4">
         <span className=" font-semibold text-lg leading-7 text-textSecondary">
-          All Messages ({chatUser?.length})
+          {conversations?.length > 0 &&
+            ` All Messages (${conversations?.length})`}
         </span>
       </div>
       <Scrollbar className="w-full !h-[calc(100vh-180px)]">
-        <div className=" flex flex-col gap-3">
-          {chatUser &&
-            chatUser
-              ?.filter((e) =>
-                e?.userName?.toLowerCase()?.includes(userFilter?.toLowerCase())
-              )
-              ?.map((element, i) => <ChatUserCard key={i} {...element} />)}
-        </div>
+        {conversations?.length > 0 ? (
+          <div className=" flex flex-col gap-3">
+            {chatUser &&
+              chatUser
+                ?.filter((e) =>
+                  e?.userName
+                    ?.toLowerCase()
+                    ?.includes(userFilter?.toLowerCase())
+                )
+                ?.map((element, i) => <ChatUserCard key={i} {...element} />)}
+          </div>
+        ) : (
+          <div className="w-full h-full flex justify-center items-center ">
+            No message
+          </div>
+        )}
       </Scrollbar>
     </>
   );
