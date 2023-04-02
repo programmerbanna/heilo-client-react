@@ -51,12 +51,13 @@ const ChatUser = ({ setConversationId }) => {
                 )
               )
               ?.sort((a, b) => new Date(b?.updatedAt) - new Date(a?.updatedAt))
-              .map((conversation) => (
-                <ChatUserCard
-                  key={conversation._id}
-                  {...conversation}
-                  setConversationId={setConversationId}
-                />
+              .map((conversation, i) => (
+                <React.Fragment key={i}>
+                  <ChatUserCard
+                    {...conversation}
+                    setConversationId={setConversationId}
+                  />
+                </React.Fragment>
               ))}
           </div>
         ) : (
