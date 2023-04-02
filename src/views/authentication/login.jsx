@@ -7,21 +7,26 @@ import { InputBox } from "shared/components/input/input";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserLoginMutation } from "shared/redux/features/auth/authApi";
-import useUserStatus from "shared/hooks/useUserStatus";
+import useUserStatus from "shared/hooks/useUserRole";
+import socket from "socket.config";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "shared/redux/features/socket/socketSlice";
 
 const Login = (Props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("hasanulhaquebanna@gmail.com");
+  const [password, setPassword] = useState("Example#1");
 
   const navigate = useNavigate();
 
   const userRole = useUserStatus();
 
   // redux events
+  const { user: socketUser } = useSelector((state) => state.socket);
   const [
     userLogin,
     { isLoading: loading, isError, error, isSuccess, data: loginData },
   ] = useUserLoginMutation();
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -44,31 +49,35 @@ const Login = (Props) => {
   useEffect(() => {
     if (isError) {
       const { data } = error;
-      toast.error(data?.error);
+      toast.error(data?.message);
     }
     if (isSuccess) {
-      const { data } = loginData;
-      const { user } = data;
+      const { user } = loginData;
+      socket.emit("addUser", user?._id);
+      socket.on("getUsers", (users) => {
+        console.log(users);
+      });
 
-      if (user?.role === "student") {
-        navigate("/student/dashboard");
-      } else if (user?.role === "teacher") {
-        navigate("/teacher/dashboard");
-      } else if (user?.role === "admin") {
-        navigate("/admin/dashboard");
-      }
+      // conditions of user role
+      // if (user?.role === "student") {
+      //   navigate("/student/dashboard");
+      // } else if (user?.role === "teacher") {
+      //   navigate("/teacher/dashboard");
+      // } else if (user?.role === "admin") {
+      //   navigate("/admin/dashboard");
+      // }
     }
   }, [isSuccess, navigate, isError, error, loginData]);
 
-  useEffect(() => {
-    if (userRole === "student") {
-      navigate("/student/dashboard");
-    } else if (userRole === "teacher") {
-      navigate("/teacher/dashboard");
-    } else if (userRole === "admin") {
-      navigate("/admin/dashboard");
-    }
-  }, [navigate, userRole]);
+  // useEffect(() => {
+  //   if (userRole === "student") {
+  //     navigate("/student/dashboard");
+  //   } else if (userRole === "teacher") {
+  //     navigate("/teacher/dashboard");
+  //   } else if (userRole === "admin") {
+  //     navigate("/admin/dashboard");
+  //   }
+  // }, [navigate, userRole]);
 
   return (
     <div className="relative flex items-center justify-center h-screen overflow-hidden">
@@ -80,12 +89,14 @@ const Login = (Props) => {
               className="pb-5"
               onChange={(e) => setEmail(e.target.value)}
               type="email"
+              value={email}
               placeholder="Email"
             />
             <InputBox
               className="pb-5 mt-5"
               onChange={(e) => setPassword(e.target.value)}
               type="password"
+              value={password}
               placeholder="Password"
             />
 
