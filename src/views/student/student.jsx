@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+
 import useUserStatus from "shared/hooks/useUserStatus";
+
+import ProtectedRoute from "shared/components/protected-route/protected-route";
+
+
 
 const Student = () => {
   const userRole = useUserStatus();

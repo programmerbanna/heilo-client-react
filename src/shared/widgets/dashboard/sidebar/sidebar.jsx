@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 import Logo from "assets/img/logo-white.png";
 import { Close, LogoutIcon } from "shared/components/icons";
 import { Image } from "shared/components/image";
-import { studentMenus } from "shared/configs";
-import useUserStatus from "shared/hooks/useUserStatus";
+
 import { DashboardMenuItem } from "../subComponents";
+import Logo from "assets/img/logo-white.png";
+import { studentMenus, teacherMenus } from "shared/configs";
+import useUserStatus from "shared/hooks/useUserRole";
+
 
 const Sidebar = ({ setOpen }) => {
   const userRole = useUserStatus();

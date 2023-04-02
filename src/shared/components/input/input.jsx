@@ -1,13 +1,14 @@
 import Select from "react-select";
 export const InputBox = ({
   appearance,
-  type ,
+  type,
   name,
   placeholder,
   onChange,
   className,
   readonly,
   required,
+  value,
 }) => {
   return (
     <input
@@ -16,6 +17,7 @@ export const InputBox = ({
       className={`form-input ${className}, `}
       type={type}
       name={name}
+      value={value}
       placeholder={placeholder}
       readOnly={readonly}
       required={required}

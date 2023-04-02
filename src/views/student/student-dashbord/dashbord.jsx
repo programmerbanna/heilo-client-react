@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { DashboardCard } from "shared/components/dashboard-card";
 import { Scrollbar } from "shared/components/scrollbar";
@@ -8,6 +9,9 @@ import TutionCompleted from "./fuatures/student-tution-completed";
 import UpcommingSessions from "./fuatures/student-upcomming-sessions";
 
 const Dashbord = () => {
+  const token = Cookies.get("userToken");
+  console.log(" user-token", token);
+
   const [selectedCard, setSelectedCard] = useState(1);
   const data = [
     {
