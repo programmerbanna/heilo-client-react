@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import ScrollableFeed from "react-scrollable-feed";
 import { SendArrow, FileSharingIcon } from "shared/components/icons";
 import { Scrollbar } from "shared/components/scrollbar";
 import { clx } from "shared/configs";
@@ -7,6 +8,7 @@ import {
   useGetConversationQuery,
   useGetMessagesQuery,
 } from "shared/redux/features/conversation/conversationApi";
+import UserChatting from "../partials/user-chatting";
 
 const ChatBox = ({ conversationId }) => {
   const [receiverUser, setReceiverUser] = useState({});
@@ -41,7 +43,11 @@ const ChatBox = ({ conversationId }) => {
 
   return (
     <>
-      {conversationId ? (
+      {messagesLoading || conversationLoading ? (
+        <div className=" pl-5 flex w-full h-full items-center justify-center">
+          Loading...
+        </div>
+      ) : conversationId ? (
         <div className=" pl-5 flex flex-col">
           <div className={clx(" flex flex-row gap-[23px] h-[72px]")}>
             <div className="pl-[23px] flex items-center relative">
@@ -62,9 +68,18 @@ const ChatBox = ({ conversationId }) => {
               </span>
             </div>
           </div>
-          <Scrollbar className="w-full !h-[calc(100vh-200px)] pb-[10px]">
-            <div className="w-full"></div>
-          </Scrollbar>
+          <ScrollableFeed className="w-full !h-[calc(100vh-200px)] pb-[10px] !scrollbar Scrollbar !scrollbar-thumb-[#7474748a]  !scroll-smooth pr-5">
+            <div className="w-full flex flex-col gap-y-6 ">
+              {!messagesLoading &&
+                messagesSuccess &&
+                messages?.length > 0 &&
+                messages?.map((message, i) => (
+                  <React.Fragment key={i}>
+                    <UserChatting message={message} />
+                  </React.Fragment>
+                ))}
+            </div>
+          </ScrollableFeed>
           <div className=" flex flex-row items-center gap-6">
             <div className=" w-[23.44px] h-[39.27px] cursor-pointer">
               <FileSharingIcon className="w-full h-full" />
