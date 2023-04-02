@@ -26,7 +26,7 @@ const ChatBox = ({ conversationId }) => {
     data: conversation,
   } = useGetConversationQuery(conversationId);
 
-  // curren logged in user
+  // current logged in user
   const { user } = useSelector((state) => state?.auth);
 
   useEffect(() => {
@@ -38,9 +38,6 @@ const ChatBox = ({ conversationId }) => {
     setReceiverUser(getReceiverUser);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId, conversation, conversationLoading, conversationSuccess]);
-
-  // console.log("receiver", receiverUser);
-
   return (
     <>
       {messagesLoading || conversationLoading ? (
@@ -90,6 +87,8 @@ const ChatBox = ({ conversationId }) => {
                 type="text"
                 className=" w-full h-full bg-transparent outline-none border-none "
                 placeholder="Write message"
+                // onChange={onChange}
+                onKeyUp={onKeyUp}
               />
             </div>
             <div className=" w-[49.95px] h-[45.9px] cursor-pointer">
