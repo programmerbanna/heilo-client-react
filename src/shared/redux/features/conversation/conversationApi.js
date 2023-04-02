@@ -3,8 +3,11 @@ import heiloApi from "shared/redux/api";
 
 const coversationApi = heiloApi.injectEndpoints({
   endpoints: (builder) => ({
+    getConversations: builder.query({
+      query: () => "/get-conversations",
+    }),
     getConversation: builder.query({
-      query: () => "/get-conversation",
+      query: (conversationId) => `/get-conversation/${conversationId}`,
     }),
     createConversation: builder.mutation({
       query: () => ``,
@@ -14,4 +17,8 @@ const coversationApi = heiloApi.injectEndpoints({
     }),
   }),
 });
-export const { useGetConversationQuery, useGetMessagesQuery } = coversationApi;
+export const {
+  useGetConversationsQuery,
+  useGetMessagesQuery,
+  useGetConversationQuery,
+} = coversationApi;

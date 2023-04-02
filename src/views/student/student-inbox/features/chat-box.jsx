@@ -3,27 +3,41 @@ import { useSelector } from "react-redux";
 import { SendArrow, FileSharingIcon } from "shared/components/icons";
 import { Scrollbar } from "shared/components/scrollbar";
 import { clx } from "shared/configs";
-import { useGetMessagesQuery } from "shared/redux/features/conversation/conversationApi";
+import {
+  useGetConversationQuery,
+  useGetMessagesQuery,
+} from "shared/redux/features/conversation/conversationApi";
 
 const ChatBox = ({ conversationId }) => {
   const [receiverUser, setReceiverUser] = useState({});
 
   // redux events
   const {
-    isLoading,
-    isSuccess,
+    isLoading: messagesLoading,
+    isSuccess: messagesSuccess,
     data: messages,
   } = useGetMessagesQuery(conversationId);
+
+  const {
+    isLoading: conversationLoading,
+    isSuccess: conversationSuccess,
+    data: conversation,
+  } = useGetConversationQuery(conversationId);
+
+  // curren logged in user
   const { user } = useSelector((state) => state?.auth);
 
-  // useEffects for event handlers
   useEffect(() => {
-    const getFilterUser =
-      isSuccess &&
-      !isLoading &&
-      messages?.filter((message) => message?.receiverId?._id !== user?._id)[0];
-    setReceiverUser(getFilterUser?.receiverId);
-  }, [conversationId, messages, isLoading, isSuccess, user]);
+    const getReceiverUser =
+      !conversationLoading &&
+      conversationSuccess &&
+      conversation[0]?.members.find((member) => member._id !== user?._id);
+
+    setReceiverUser(getReceiverUser);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversationId, conversation, conversationLoading, conversationSuccess]);
+
+  // console.log("receiver", receiverUser);
 
   return (
     <>
@@ -31,7 +45,7 @@ const ChatBox = ({ conversationId }) => {
         <div className=" pl-5 flex flex-col">
           <div className={clx(" flex flex-row gap-[23px] h-[72px]")}>
             <div className="pl-[23px] flex items-center relative">
-              <div className=" h-[49px] w-[49px] rounded-full relative  overflow-hidden">
+              <div className=" h-[40px] w-[40px] rounded-full relative  overflow-hidden">
                 <img
                   src={receiverUser?.image}
                   alt={receiverUser?.name}
