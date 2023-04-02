@@ -1,20 +1,23 @@
-import { chatUser } from "demo-data";
 import React from "react";
 import { Scrollbar } from "shared/components/scrollbar";
 import ChatUserCard from "./chat-user-card";
 import { SearchIcon } from "shared/components/icons";
 import { useState } from "react";
 import { useGetConversationQuery } from "shared/redux/features/conversation/conversationApi";
-const ChatUser = () => {
+import { useSelector } from "react-redux";
+const ChatUser = ({ setConversationId }) => {
   const [userFilter, setUserFilter] = useState("");
   const SearchHandler = (e) => {
     setUserFilter(e?.target?.value);
   };
 
   // redux events
-  const { data: conversations } = useGetConversationQuery();
+  const { user } = useSelector((state) => state?.auth);
+  const { isLoading, data: conversations } = useGetConversationQuery();
 
-  console.log(conversations);
+  const { _id: loggedInUserId } = user;
+  // console.log("conversations", conversations);
+
   return (
     <>
       <div className="w-full px-5 bg-[#c4c4c4] h-[45px] rounded-[30px] flex justify-center items-center">
@@ -37,18 +40,28 @@ const ChatUser = () => {
       <Scrollbar className="w-full !h-[calc(100vh-180px)]">
         {conversations?.length > 0 ? (
           <div className=" flex flex-col gap-3">
-            {chatUser &&
-              chatUser
-                ?.filter((e) =>
-                  e?.userName
-                    ?.toLowerCase()
-                    ?.includes(userFilter?.toLowerCase())
+            {conversations
+              .filter((conversation) =>
+                conversation.members.some(
+                  (member) =>
+                    member._id !== loggedInUserId &&
+                    member.name
+                      ?.toLowerCase()
+                      .includes(userFilter.toLowerCase())
                 )
-                ?.map((element, i) => <ChatUserCard key={i} {...element} />)}
+              )
+              ?.sort((a, b) => new Date(b?.updatedAt) - new Date(a?.updatedAt))
+              .map((conversation) => (
+                <ChatUserCard
+                  key={conversation._id}
+                  {...conversation}
+                  setConversationId={setConversationId}
+                />
+              ))}
           </div>
         ) : (
           <div className="w-full h-full flex justify-center items-center ">
-            No message
+            {isLoading ? "Loading..." : "No message"}
           </div>
         )}
       </Scrollbar>
