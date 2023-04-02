@@ -35,21 +35,19 @@ const ChatUserCard = ({
     const getMessage =
       !isLoading &&
       isSuccess &&
-      messages?.sort(
-        (a, b) => new Date(b?.updatedAt) - new Date(a?.updatedAt)
-      )[0];
-
+      messages?.length > 0 &&
+      messages
+        ?.filter((message) => message?.senderId?._id === loggedInUserId)
+        ?.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))[0];
     setLastMessage(getMessage);
   }, [loggedInUserId, messages, isLoading, isSuccess]);
-
-  console.log("latest message", lastMessage);
 
   return (
     <>
       <div
         onClick={onClick}
         className={clx(
-          " border-l-[10px] border-solid bg-[#f8f8f8] flex flex-row gap-[15px] h-[72px] cursor-pointer pr-[10px]"
+          " border-l-[10px] border-solid bg-[#f8f8f8] flex flex-row gap-[15px] h-[72px] cursor-pointer pr-[10px] overflow-hidden"
           // activeUser ? "border-primaryLight" : "border-[#c4c4c4]"
         )}
       >
@@ -78,7 +76,7 @@ const ChatUserCard = ({
         </div>
         <div className=" flex flex-col w-[41%] justify-center">
           <span className=" font-semibold text-sm leading-[21px] text-[#cfd8dc] truncate">
-            {lastMessage && lastMessage?.senderId === loggedInUserId
+            {lastMessage && lastMessage?.senderId?._id === loggedInUserId
               ? `You: ${lastMessage?.text}`
               : lastMessage && `${lastMessage?.text}`}
           </span>
