@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import ProtectedRoute from "shared/components/protected-route/protected-route";
 import useUserStatus from "shared/hooks/useUserStatus";
 
 const Student = () => {
@@ -14,11 +13,11 @@ const Student = () => {
     }
   }, [userRole, navigate]);
   return (
-    <ProtectedRoute>
+    <>
       <div className="w-full min-h-full ">
         <Outlet />
       </div>
-    </ProtectedRoute>
+    </>
   );
 };
 
