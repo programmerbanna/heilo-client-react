@@ -3,7 +3,7 @@ import { Scrollbar } from "shared/components/scrollbar";
 import ChatUserCard from "./chat-user-card";
 import { SearchIcon } from "shared/components/icons";
 import { useState } from "react";
-import { useGetConversationQuery } from "shared/redux/features/conversation/conversationApi";
+import { useGetConversationsQuery } from "shared/redux/features/conversation/conversationApi";
 import { useSelector } from "react-redux";
 const ChatUser = ({ setConversationId }) => {
   const [userFilter, setUserFilter] = useState("");
@@ -13,7 +13,7 @@ const ChatUser = ({ setConversationId }) => {
 
   // redux events
   const { user } = useSelector((state) => state?.auth);
-  const { isLoading, data: conversations } = useGetConversationQuery();
+  const { isLoading, data: conversations } = useGetConversationsQuery();
 
   const { _id: loggedInUserId } = user;
   // console.log("conversations", conversations);
