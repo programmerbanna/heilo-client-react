@@ -1,7 +1,7 @@
-import React from "react";
+import student from "assets/img/student.png";
 import { StarIcon } from "shared/components/icons";
 import { Image } from "shared/components/image";
-import student from "assets/img/student.png";
+
 const StudentInfoCard = ({ userData }) => {
   return (
     <div className="grayDiv rounded-3xl p-8 mt-16">
