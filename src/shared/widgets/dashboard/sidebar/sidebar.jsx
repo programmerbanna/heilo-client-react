@@ -5,11 +5,9 @@ import Logo from "assets/img/logo-white.png";
 import { Close, LogoutIcon } from "shared/components/icons";
 import { Image } from "shared/components/image";
 
-import { DashboardMenuItem } from "../subComponents";
-import Logo from "assets/img/logo-white.png";
-import { studentMenus, teacherMenus } from "shared/configs";
+import { studentMenus } from "shared/configs";
 import useUserStatus from "shared/hooks/useUserRole";
-
+import { DashboardMenuItem } from "../subComponents";
 
 const Sidebar = ({ setOpen }) => {
   const userRole = useUserStatus();
