@@ -10,7 +10,7 @@ const coversationApi = heiloApi.injectEndpoints({
       query: () => ``,
     }),
     getMessages: builder.query({
-      query: (id) => `/get-message/${id}`,
+      query: (conversationId) => `/get-message/${conversationId}`,
     }),
   }),
 });
