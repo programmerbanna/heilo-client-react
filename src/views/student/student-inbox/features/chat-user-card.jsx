@@ -1,15 +1,17 @@
 import moment from "moment";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { clx } from "shared/configs";
 import { useGetMessagesQuery } from "shared/redux/features/conversation/conversationApi";
 
 const ChatUserCard = ({
-  updatedAt,
+  updatedAt: conversationUpdatedAt,
   _id: conversationId,
   setConversationId,
   members,
 }) => {
+  const [lastMessage, setLastMessage] = useState({});
+
   // redux events
   const { user } = useSelector((state) => state?.auth);
   const { _id: loggedInUserId } = user;
@@ -29,20 +31,18 @@ const ChatUserCard = ({
     (member) => member?._id !== loggedInUserId
   )[0];
 
-  // filtering sender user message
-  const { text: myMessage } =
-    !isLoading &&
-    isSuccess &&
-    messages
-      ?.filter((message) => message?.senderId === loggedInUserId)
-      ?.sort((a, b) => new Date(b?.updatedAt) - new Date(a?.updatedAt))[0];
+  useEffect(() => {
+    const getMessage =
+      !isLoading &&
+      isSuccess &&
+      messages?.sort(
+        (a, b) => new Date(b?.updatedAt) - new Date(a?.updatedAt)
+      )[0];
 
-  // console.log(
-  //   "getMessage",
-  //   messages
-  //     ?.filter((message) => message?.senderId === loggedInUserId)
-  //     ?.sort((a, b) => new Date(b?.updatedAt) - new Date(a?.updatedAt))
-  // );
+    setLastMessage(getMessage);
+  }, [loggedInUserId, messages, isLoading, isSuccess]);
+
+  console.log("latest message", lastMessage);
 
   return (
     <>
@@ -78,10 +78,16 @@ const ChatUserCard = ({
         </div>
         <div className=" flex flex-col w-[41%] justify-center">
           <span className=" font-semibold text-sm leading-[21px] text-[#cfd8dc] truncate">
-            {myMessage && `You: ${myMessage}`}
+            {lastMessage && lastMessage?.senderId === loggedInUserId
+              ? `You: ${lastMessage?.text}`
+              : lastMessage && `${lastMessage?.text}`}
           </span>
           <span className=" font-semibold text-sm leading-[21px] text-textSecondary">
-            ({moment(updatedAt).format("h:mm A")})
+            (
+            {moment(lastMessage?.updatedAt || conversationUpdatedAt).format(
+              "h:mm A"
+            )}
+            )
           </span>
         </div>
       </div>
