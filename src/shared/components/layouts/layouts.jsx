@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 // custom imports
+import userImage from "assets/img/teacher.png";
 import { clx } from "shared/configs";
 import { Sidebar } from "shared/widgets/dashboard/sidebar";
-import { Image } from "../image";
-import userImage from "assets/img/teacher.png";
 import { MobileMenuIcon } from "../icons";
+import { Image } from "../image";
 
 const Layouts = ({ className }) => {
   const route = useLocation();

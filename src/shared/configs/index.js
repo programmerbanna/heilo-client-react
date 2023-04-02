@@ -1,19 +1,19 @@
 import classNames from "classnames";
 // custom imports
 import {
-  GraduationCap,
   ClipBoardListCheck,
-  Laptop,
-  ProfileIcon,
+  ContactMenuIcon,
   EditProfileIcon,
   EmailIcon,
-  WalletIcon,
-  QuizMenuIcon,
+  GraduationCap,
   HomeMenuIcon,
-  TeacherMenuIcon,
+  Laptop,
+  ProfileIcon,
+  QuizMenuIcon,
   StudentMenuIcon,
+  TeacherMenuIcon,
+  WalletIcon,
   WalletMenuIcon,
-  ContactMenuIcon,
 } from "shared/components/icons";
 
 export const clx = classNames;
@@ -47,7 +47,7 @@ export const studentMenus = [
   {
     label: "Edit Profile",
     icon: <EditProfileIcon width="30" />,
-    path: "/student/edite/profile",
+    path: "/student/edit/profile",
   },
   {
     label: "Inbox",
@@ -57,8 +57,6 @@ export const studentMenus = [
 ];
 
 export const teacherMenus = [
-  
- 
   {
     label: "Dashboard",
     icon: <Laptop width="28" />,
@@ -83,9 +81,8 @@ export const teacherMenus = [
     label: "Inbox",
     icon: <EmailIcon width="26" />,
     path: "/teacher/inbox",
-  }, 
+  },
 ];
-
 
 export const adminMenus = [
   {

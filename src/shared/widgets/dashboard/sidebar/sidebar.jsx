@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // custom imports
+import Logo from "assets/img/logo-white.png";
 import { Close, LogoutIcon } from "shared/components/icons";
 import { Image } from "shared/components/image";
+
 import { DashboardMenuItem } from "../subComponents";
 import Logo from "assets/img/logo-white.png";
 import { studentMenus, teacherMenus } from "shared/configs";
 import useUserStatus from "shared/hooks/useUserRole";
+
 
 const Sidebar = ({ setOpen }) => {
   const userRole = useUserStatus();
@@ -28,7 +30,7 @@ const Sidebar = ({ setOpen }) => {
         </div>
         <nav className="pl-[21px] h-full w-full gap-1 flex flex-col justify-center ">
           <ul className="flex flex-col ">
-            {userRole === "student"
+            {/* {userRole === "student"
               ? studentMenus.map((element, i) => (
                   <DashboardMenuItem key={i} {...element} />
                 ))
@@ -36,7 +38,10 @@ const Sidebar = ({ setOpen }) => {
               ? teacherMenus.map((element, i) => (
                   <DashboardMenuItem key={i} {...element} />
                 ))
-              : null}
+              : null} */}
+            {studentMenus.map((element, i) => (
+              <DashboardMenuItem key={i} {...element} />
+            ))}
           </ul>
         </nav>
         <div className="pl-[21px] md:pl-0  w-full h-full flex md:justify-center items-end">
