@@ -53,7 +53,7 @@ const Login = (Props) => {
     }
     if (isSuccess) {
       const { user } = loginData;
-      socket.emit("addUser", user?._id);
+      socket.emit("addUsers", user?._id);
       socket.on("getUsers", (users) => {
         console.log(users);
       });
