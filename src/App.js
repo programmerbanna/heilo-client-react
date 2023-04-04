@@ -8,15 +8,10 @@ import "shared/styles/scrollbar.css";
 import socket from "socket.config";
 
 const App = () => {
-  useEffect(() => {
-    // setSocket(io("ws://localhost:5000"));
-  }, []);
+  socket.emit("logout", (user) => {
+    console.log("logged out", user);
+  });
 
-  useEffect(() => {
-    socket?.on("welcome", (msg) => {
-      alert(msg);
-    });
-  }, []);
   const isAuthChecking = useAuthCheck();
   return !isAuthChecking ? null : (
     <>
