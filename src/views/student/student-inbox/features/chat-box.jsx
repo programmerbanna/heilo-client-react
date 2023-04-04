@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import ScrollableFeed from "react-scrollable-feed";
 import { SendArrow, FileSharingIcon } from "shared/components/icons";
 import { Scrollbar } from "shared/components/scrollbar";
 import { clx } from "shared/configs";
 import {
+  useCreateMessageMutation,
   useGetConversationQuery,
   useGetMessagesQuery,
 } from "shared/redux/features/conversation/conversationApi";
+import socket from "socket.config";
 import UserChatting from "../partials/user-chatting";
 
 const ChatBox = ({ conversationId }) => {
+  const scrollRef = useRef();
+  const [inputMessage, setInputMessage] = useState("");
+
   const [receiverUser, setReceiverUser] = useState({});
 
   // redux events
@@ -26,6 +31,8 @@ const ChatBox = ({ conversationId }) => {
     data: conversation,
   } = useGetConversationQuery(conversationId);
 
+  const [createMessage] = useCreateMessageMutation();
+
   // current logged in user
   const { user } = useSelector((state) => state?.auth);
 
@@ -38,6 +45,30 @@ const ChatBox = ({ conversationId }) => {
     setReceiverUser(getReceiverUser);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId, conversation, conversationLoading, conversationSuccess]);
+
+  // console.log("receiverUser", receiverUser);
+
+  // function events
+  const onKeyUp = (e) => {
+    if (e.key === "Enter" && e.keyCode === 13) {
+      socket.emit("sendMessage", {
+        conversationId,
+        senderId: user,
+        receiverId: receiverUser,
+        text: inputMessage,
+      });
+      createMessage({
+        conversationId,
+        receiverId: receiverUser?._id,
+        text: inputMessage,
+      });
+      setInputMessage("");
+    }
+  };
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ transition: "smooth" });
+  }, [messages]);
   return (
     <>
       {messagesLoading || conversationLoading ? (
@@ -65,18 +96,19 @@ const ChatBox = ({ conversationId }) => {
               </span>
             </div>
           </div>
-          <ScrollableFeed className="w-full !h-[calc(100vh-200px)] pb-[10px] !scrollbar Scrollbar !scrollbar-thumb-[#7474748a]  !scroll-smooth pr-5">
+          <Scrollbar className="w-full !h-[calc(100vh-200px)] pb-[10px]">
             <div className="w-full flex flex-col gap-y-6 ">
-              {!messagesLoading &&
-                messagesSuccess &&
-                messages?.length > 0 &&
-                messages?.map((message, i) => (
-                  <React.Fragment key={i}>
-                    <UserChatting message={message} />
-                  </React.Fragment>
-                ))}
+              {!messagesLoading && messagesSuccess && messages?.length > 0 && (
+                <React.Fragment>
+                  <UserChatting
+                    ref={scrollRef}
+                    messages={messages}
+                    conversation={conversation}
+                  />
+                </React.Fragment>
+              )}
             </div>
-          </ScrollableFeed>
+          </Scrollbar>
           <div className=" flex flex-row items-center gap-6">
             <div className=" w-[23.44px] h-[39.27px] cursor-pointer">
               <FileSharingIcon className="w-full h-full" />
@@ -85,9 +117,10 @@ const ChatBox = ({ conversationId }) => {
             <div className="w-full px-5 bg-[#E2E2E2] h-[45px] rounded-[30px] flex justify-center items-center">
               <input
                 type="text"
+                value={inputMessage}
                 className=" w-full h-full bg-transparent outline-none border-none "
                 placeholder="Write message"
-                // onChange={onChange}
+                onChange={(e) => setInputMessage(e.target.value)}
                 onKeyUp={onKeyUp}
               />
             </div>
@@ -97,7 +130,9 @@ const ChatBox = ({ conversationId }) => {
           </div>
         </div>
       ) : (
-        <div className=""></div>
+        <div className=" pl-5 flex w-full h-full items-center justify-center">
+          Please select a participant!
+        </div>
       )}
     </>
   );
