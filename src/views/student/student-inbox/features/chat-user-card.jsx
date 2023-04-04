@@ -2,7 +2,9 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { clx } from "shared/configs";
+import useActiveUsers from "shared/hooks/useActiveUsers";
 import { useGetMessagesQuery } from "shared/redux/features/conversation/conversationApi";
+import socket from "socket.config";
 
 const ChatUserCard = ({
   updatedAt: conversationUpdatedAt,
@@ -11,6 +13,10 @@ const ChatUserCard = ({
   members,
 }) => {
   const [lastMessage, setLastMessage] = useState({});
+  const [activeUser, setActiveUser] = useState(false);
+
+  // hooks
+  const activeUsers = useActiveUsers();
 
   // redux events
   const { user } = useSelector((state) => state?.auth);
@@ -27,9 +33,11 @@ const ChatUserCard = ({
   };
 
   // filtering receiver user
-  const { image, name } = members?.filter(
-    (member) => member?._id !== loggedInUserId
-  )[0];
+  const {
+    image,
+    name,
+    _id: receiverUserId,
+  } = members?.filter((member) => member?._id !== loggedInUserId)[0];
 
   useEffect(() => {
     const getMessage =
@@ -42,13 +50,20 @@ const ChatUserCard = ({
     setLastMessage(getMessage);
   }, [loggedInUserId, messages, isLoading, isSuccess]);
 
+  useEffect(() => {
+    const filterUser = activeUsers?.find(
+      (user) => user?.userId === receiverUserId
+    );
+    setActiveUser(filterUser?.userId === receiverUserId);
+  }, [activeUsers, receiverUserId]);
+
   return (
     <>
       <div
         onClick={onClick}
         className={clx(
-          " border-l-[10px] border-solid bg-[#f8f8f8] flex flex-row gap-[15px] h-[72px] cursor-pointer pr-[10px] overflow-hidden"
-          // activeUser ? "border-primaryLight" : "border-[#c4c4c4]"
+          " border-l-[10px] border-solid bg-[#f8f8f8] flex flex-row gap-[15px] h-[72px] cursor-pointer pr-[10px] overflow-hidden",
+          activeUser ? "border-primaryLight" : "border-[#c4c4c4]"
         )}
       >
         <div className="pl-[15px] flex items-center relative">
@@ -61,8 +76,8 @@ const ChatUserCard = ({
           </div>
           <div
             className={clx(
-              " p-1 bg-primaryLight border-[3px] border-solid border-[#f8f8f8] rounded-full absolute bottom-[13px] -right-[2px]"
-              // activeUser ? " block" : "hidden"
+              " p-1 bg-primaryLight border-[3px] border-solid border-[#f8f8f8] rounded-full absolute bottom-[13px] -right-[2px]",
+              activeUser ? " block" : "hidden"
             )}
           ></div>
         </div>

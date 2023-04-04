@@ -50,7 +50,6 @@ const ChatUser = ({ setConversationId }) => {
                       .includes(userFilter.toLowerCase())
                 )
               )
-              ?.sort((a, b) => new Date(b?.updatedAt) - new Date(a?.updatedAt))
               .map((conversation, i) => (
                 <React.Fragment key={i}>
                   <ChatUserCard
@@ -62,7 +61,7 @@ const ChatUser = ({ setConversationId }) => {
           </div>
         ) : (
           <div className="w-full h-full flex justify-center items-center ">
-            {isLoading ? "Loading..." : "No message"}
+            {isLoading ? "Loading..." : "No conversaton found!"}
           </div>
         )}
       </Scrollbar>
