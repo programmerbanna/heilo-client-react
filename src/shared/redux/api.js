@@ -8,6 +8,10 @@ export const heiloApi = createApi({
     baseUrl: API_URL + "api/v1",
     credentials: "include",
     prepareHeaders: async (headers, { getState, endpoint }) => {},
+    postProcessResponse: async (
+      result,
+      { dispatch, getState, requestId }
+    ) => {},
   }),
   endpoints: (builder) => ({}),
 });

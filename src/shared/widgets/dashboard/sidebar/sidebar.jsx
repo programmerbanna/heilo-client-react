@@ -1,16 +1,38 @@
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // custom imports
 import Logo from "assets/img/logo-white.png";
 import { Close, LogoutIcon } from "shared/components/icons";
 import { Image } from "shared/components/image";
 
-import { studentMenus } from "shared/configs";
+import { studentMenus, teacherMenus } from "shared/configs";
 import useUserStatus from "shared/hooks/useUserRole";
+import socket from "socket.config";
 import { DashboardMenuItem } from "../subComponents";
 
+// =============================== Sidebar Menu ======================//
 const Sidebar = ({ setOpen }) => {
   const userRole = useUserStatus();
+  const navigate = useNavigate();
+
+  // redux events
+  const { user } = useSelector((state) => state?.auth);
+  const { _id: loggedInUserId } = user;
+
+  const onClick = () => {
+    socket.emit("userRemove", loggedInUserId);
+    localStorage.removeItem("auth");
+    navigate("/login");
+  };
+
+  useEffect(() => {
+    socket.on("getUsers", (user) => {
+      console.log(user);
+    });
+  }, []);
+
   return (
     <>
       <div className="flex flex-col w-full md:w-[253px] h-full">
@@ -28,7 +50,7 @@ const Sidebar = ({ setOpen }) => {
         </div>
         <nav className="pl-[21px] h-full w-full gap-1 flex flex-col justify-center ">
           <ul className="flex flex-col ">
-            {/* {userRole === "student"
+            {userRole === "student"
               ? studentMenus.map((element, i) => (
                   <DashboardMenuItem key={i} {...element} />
                 ))
@@ -36,14 +58,11 @@ const Sidebar = ({ setOpen }) => {
               ? teacherMenus.map((element, i) => (
                   <DashboardMenuItem key={i} {...element} />
                 ))
-              : null} */}
-            {studentMenus.map((element, i) => (
-              <DashboardMenuItem key={i} {...element} />
-            ))}
+              : null}
           </ul>
         </nav>
         <div className="pl-[21px] md:pl-0  w-full h-full flex md:justify-center items-end">
-          <button className="flex items-center mr-5">
+          <button className="flex items-center mr-5" onClick={onClick}>
             <div className="flex items-center h-20 px-3 py-5 bg-white rounded-tl-full rounded-tr-full">
               <LogoutIcon width={26} className="text-primaryDark" />
             </div>

@@ -13,7 +13,15 @@ const coversationApi = heiloApi.injectEndpoints({
       query: () => ``,
     }),
     getMessages: builder.query({
-      query: (conversationId) => `/get-message/${conversationId}`,
+      query: ({ conversationId, limit, offset }) =>
+        `/get-message/${conversationId}?limit=${limit}&offset=${offset}`,
+    }),
+    createMessage: builder.mutation({
+      query: (data) => ({
+        url: `/send-message`,
+        method: "POST",
+        body: data,
+      }),
     }),
   }),
 });
@@ -21,4 +29,6 @@ export const {
   useGetConversationsQuery,
   useGetMessagesQuery,
   useGetConversationQuery,
+  useCreateConversationMutation,
+  useCreateMessageMutation,
 } = coversationApi;
