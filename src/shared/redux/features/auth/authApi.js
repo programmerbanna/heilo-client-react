@@ -45,12 +45,14 @@ const authApi = heiloApi.injectEndpoints({
             "auth",
             JSON.stringify({
               user: data?.user,
+              token: data?.token,
             })
           );
 
           dispatch(
             userLoggedIn({
               user: data?.user,
+              data: data?.token,
             })
           );
         } catch (error) {}
