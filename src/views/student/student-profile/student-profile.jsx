@@ -1,9 +1,7 @@
-import React from "react";
 import { Scrollbar } from "shared/components/scrollbar";
 import { useGetUserInfoQuery } from "shared/redux/features/student/studentApi";
 import Review from "./features/review";
 import ReviewTile from "./features/review-tile";
-import StudentInfoCard from "./features/student-info-card";
 
 const StudentProfile = () => {
   const { data } = useGetUserInfoQuery();
