@@ -6,7 +6,11 @@ const API_URL =
   NODE_ENV === "production" ? PRODUCTION_API_URL : DEVELOPMENT_API_URL;
 
 console.log(".........................checking node env", NODE_ENV);
-console.log(".........................checking api url", API_URL);
+console.log(
+  ".........................checking api url",
+  API_URL,
+  PRODUCTION_API_URL
+);
 
 export const heiloApi = createApi({
   reducerPath: "heiloApi",
