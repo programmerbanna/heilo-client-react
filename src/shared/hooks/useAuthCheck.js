@@ -15,6 +15,7 @@ export default function useAuthCheck() {
         dispatch(
           userLoggedIn({
             user: auth.user,
+            token: auth.token,
           })
         );
       }
