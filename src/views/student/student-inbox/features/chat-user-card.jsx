@@ -69,7 +69,7 @@ const ChatUserCard = ({
     });
   }, []);
 
-  console.log("active user", activeUser);
+  // console.log("active user", activeUser);
 
   return (
     <>
