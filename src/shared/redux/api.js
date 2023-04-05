@@ -12,7 +12,6 @@ export const heiloApi = createApi({
     credentials: "include",
     prepareHeaders: async (headers, { getState, endpoint }) => {
       const token = getState()?.auth?.token;
-      console.log("tokeen........", token);
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
