@@ -8,10 +8,6 @@ import "shared/styles/scrollbar.css";
 import socket from "socket.config";
 
 const App = () => {
-  socket.emit("logout", (user) => {
-    console.log("logged out", user);
-  });
-
   const isAuthChecking = useAuthCheck();
   return !isAuthChecking ? null : (
     <>
