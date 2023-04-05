@@ -1,8 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { API_URL } from "env";
-import Cookies from "js-cookie";
-import { toast } from "react-hot-toast";
 
 export const heiloApi = createApi({
   reducerPath: "heiloApi",
