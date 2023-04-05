@@ -1,6 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { API_URL } from "env";
+import { PRODUCTION_API_URL, DEVELOPMENT_API_URL, NODE_ENV } from "env";
+
+const API_URL =
+  NODE_ENV === "production" ? PRODUCTION_API_URL : DEVELOPMENT_API_URL;
 
 export const heiloApi = createApi({
   reducerPath: "heiloApi",
