@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import ScrollableFeed from "react-scrollable-feed";
 import { SendArrow, FileSharingIcon } from "shared/components/icons";
 import { Scrollbar } from "shared/components/scrollbar";
 import { clx } from "shared/configs";
@@ -15,7 +14,6 @@ import UserChatting from "../partials/user-chatting";
 const ChatBox = ({ conversationId }) => {
   const scrollRef = useRef();
   const [inputMessage, setInputMessage] = useState("");
-
   const [receiverUser, setReceiverUser] = useState({});
 
   // redux events
@@ -23,7 +21,7 @@ const ChatBox = ({ conversationId }) => {
     isLoading: messagesLoading,
     isSuccess: messagesSuccess,
     data: messages,
-  } = useGetMessagesQuery(conversationId);
+  } = useGetMessagesQuery({ conversationId, limit: 10, offset: 0 });
 
   const {
     isLoading: conversationLoading,
@@ -50,7 +48,7 @@ const ChatBox = ({ conversationId }) => {
 
   // function events
   const onKeyUp = (e) => {
-    if (e.key === "Enter" && e.keyCode === 13) {
+    if (e.key === "Enter" && e.keyCode === 13 && inputMessage) {
       socket.emit("sendMessage", {
         conversationId,
         senderId: user,
@@ -98,10 +96,9 @@ const ChatBox = ({ conversationId }) => {
           </div>
           <Scrollbar className="w-full !h-[calc(100vh-200px)] pb-[10px]">
             <div className="w-full flex flex-col gap-y-6 ">
-              {!messagesLoading && messagesSuccess && messages?.length > 0 && (
+              {!messagesLoading && messagesSuccess && (
                 <React.Fragment>
                   <UserChatting
-                    ref={scrollRef}
                     messages={messages}
                     conversation={conversation}
                   />
