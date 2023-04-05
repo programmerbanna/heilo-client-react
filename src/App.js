@@ -11,6 +11,12 @@ import socket from "socket.config";
 const App = () => {
   const isAuthChecking = useAuthCheck();
 
+  useEffect(() => {
+    socket.on("getUsers", (user) => {
+      alert("user connected", user);
+    });
+  }, []);
+
   return !isAuthChecking ? null : (
     <>
       <Outlet />
