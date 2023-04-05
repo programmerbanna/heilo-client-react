@@ -6,15 +6,14 @@ import { useEffect } from "react";
 // custom imports
 import "shared/styles/globals.css";
 import "shared/styles/scrollbar.css";
-import socket from "socket.config";
 
 const App = () => {
   const isAuthChecking = useAuthCheck();
 
   useEffect(() => {
-    socket.on("getUsers", (user) => {
-      alert("user connected", user);
-    });
+    // socket.on("getUsers", (user) => {
+    //   alert("user connected", user);
+    // });
   }, []);
 
   return !isAuthChecking ? null : (

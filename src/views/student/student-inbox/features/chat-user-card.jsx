@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { clx } from "shared/configs";
 import useActiveUsers from "shared/hooks/useActiveUsers";
 import { useGetMessagesQuery } from "shared/redux/features/conversation/conversationApi";
-import socket from "socket.config";
 
 const ChatUserCard = ({
   updatedAt: conversationUpdatedAt,
@@ -57,17 +56,17 @@ const ChatUserCard = ({
     setActiveUser(filterUser);
   }, [activeUsers, receiverUserId]);
 
-  useEffect(() => {
-    socket.on("senderLastMessage", (incomingMessage) => {
-      setLastMessage({ ...incomingMessage, updatedAt: new Date() });
-    });
-  }, []);
+  // useEffect(() => {
+  //   socket.on("senderLastMessage", (incomingMessage) => {
+  //     setLastMessage({ ...incomingMessage, updatedAt: new Date() });
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    socket.on("getUsers", (lastseen) => {
-      console.log(lastseen);
-    });
-  }, []);
+  // useEffect(() => {
+  //   socket.on("getUsers", (lastseen) => {
+  //     console.log(lastseen);
+  //   });
+  // }, []);
 
   // console.log("active user", activeUser);
 

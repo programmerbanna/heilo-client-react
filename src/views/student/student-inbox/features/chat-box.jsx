@@ -8,7 +8,6 @@ import {
   useGetConversationQuery,
   useGetMessagesQuery,
 } from "shared/redux/features/conversation/conversationApi";
-import socket from "socket.config";
 import UserChatting from "../partials/user-chatting";
 
 const ChatBox = ({ conversationId }) => {
@@ -49,12 +48,12 @@ const ChatBox = ({ conversationId }) => {
   // function events
   const onKeyUp = (e) => {
     if (e.key === "Enter" && e.keyCode === 13 && inputMessage) {
-      socket.emit("sendMessage", {
-        conversationId,
-        senderId: user,
-        receiverId: receiverUser,
-        text: inputMessage,
-      });
+      // socket.emit("sendMessage", {
+      //   conversationId,
+      //   senderId: user,
+      //   receiverId: receiverUser,
+      //   text: inputMessage,
+      // });
       createMessage({
         conversationId,
         receiverId: receiverUser?._id,

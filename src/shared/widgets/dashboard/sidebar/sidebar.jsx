@@ -9,7 +9,6 @@ import { Image } from "shared/components/image";
 
 import { studentMenus, teacherMenus } from "shared/configs";
 import useUserStatus from "shared/hooks/useUserRole";
-import socket from "socket.config";
 import { DashboardMenuItem } from "../subComponents";
 
 // =============================== Sidebar Menu ======================//
@@ -22,15 +21,15 @@ const Sidebar = ({ setOpen }) => {
   const { user } = useSelector((state) => state?.auth);
 
   const onClick = () => {
-    socket.emit("userRemove", loggedInUserId);
+    // socket.emit("userRemove", loggedInUserId);
     localStorage.removeItem("auth");
     navigate("/login");
   };
 
   useEffect(() => {
-    socket.on("getUsers", (user) => {
-      console.log(user);
-    });
+    // socket.on("getUsers", (user) => {
+    //   console.log(user);
+    // });
   }, []);
 
   useEffect(() => {

@@ -8,9 +8,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserLoginMutation } from "shared/redux/features/auth/authApi";
 import useUserStatus from "shared/hooks/useUserRole";
-import socket from "socket.config";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "shared/redux/features/socket/socketSlice";
 
 const Login = (Props) => {
   const [email, setEmail] = useState("hasanulhaquebanna@gmail.com");
@@ -53,10 +51,10 @@ const Login = (Props) => {
     }
     if (isSuccess) {
       const { user } = loginData;
-      socket.emit("addUsers", user?._id);
-      socket.on("getUsers", (users) => {
-        console.log(users);
-      });
+      // socket.emit("addUsers", user?._id);
+      // socket.on("getUsers", (users) => {
+      //   console.log(users);
+      // });
 
       // conditions of user role
       // if (user?.role === "student") {

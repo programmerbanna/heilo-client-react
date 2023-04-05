@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import socket from "socket.config";
 
 const UserChatting = ({ messages, conversation }) => {
   const [socketMessage, sestSocketMessage] = useState(null);
@@ -10,21 +9,21 @@ const UserChatting = ({ messages, conversation }) => {
   const { user } = useSelector((state) => state?.auth);
   const { _id: loggedInUserId } = user;
 
-  useEffect(() => {
-    socket.on("getMessage", (incomingMessage) => {
-      sestSocketMessage({ ...incomingMessage, updatedAt: new Date() });
-    });
-  }, []);
+  // useEffect(() => {
+  //   socket.on("getMessage", (incomingMessage) => {
+  //     sestSocketMessage({ ...incomingMessage, updatedAt: new Date() });
+  //   });
+  // }, []);
 
   useEffect(() => {
     socketMessage && setAllMessage((prev) => [...prev, socketMessage]);
     // console.log("getMember working", getMember);
   }, [socketMessage, conversation]);
 
-  console.log(
-    "get members info",
-    conversation[0]?.members?.includes(socketMessage?.receiverId)
-  );
+  // console.log(
+  //   "get members info",
+  //   conversation[0]?.members?.includes(socketMessage?.receiverId)
+  // );
 
   useEffect(() => {
     setAllMessage(messages);
