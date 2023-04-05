@@ -13,7 +13,7 @@ const ChatUserCard = ({
   members,
 }) => {
   const [lastMessage, setLastMessage] = useState({});
-  const [activeUser, setActiveUser] = useState(false);
+  const [activeUser, setActiveUser] = useState({});
 
   // hooks
   const activeUsers = useActiveUsers();
@@ -26,7 +26,7 @@ const ChatUserCard = ({
     isLoading,
     isSuccess,
     data: messages,
-  } = useGetMessagesQuery(conversationId);
+  } = useGetMessagesQuery({ conversationId, limit: 10 });
 
   const onClick = () => {
     setConversationId(conversationId);
@@ -54,8 +54,22 @@ const ChatUserCard = ({
     const filterUser = activeUsers?.find(
       (user) => user?.userId === receiverUserId
     );
-    setActiveUser(filterUser?.userId === receiverUserId);
+    setActiveUser(filterUser);
   }, [activeUsers, receiverUserId]);
+
+  useEffect(() => {
+    socket.on("senderLastMessage", (incomingMessage) => {
+      setLastMessage({ ...incomingMessage, updatedAt: new Date() });
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.on("getUsers", (lastseen) => {
+      console.log(lastseen);
+    });
+  }, []);
+
+  console.log("active user", activeUser);
 
   return (
     <>
@@ -63,7 +77,9 @@ const ChatUserCard = ({
         onClick={onClick}
         className={clx(
           " border-l-[10px] border-solid bg-[#f8f8f8] flex flex-row gap-[15px] h-[72px] cursor-pointer pr-[10px] overflow-hidden",
-          activeUser ? "border-primaryLight" : "border-[#c4c4c4]"
+          activeUser?.userId === receiverUserId
+            ? "border-primaryLight"
+            : "border-[#c4c4c4]"
         )}
       >
         <div className="pl-[15px] flex items-center relative">
@@ -77,7 +93,7 @@ const ChatUserCard = ({
           <div
             className={clx(
               " p-1 bg-primaryLight border-[3px] border-solid border-[#f8f8f8] rounded-full absolute bottom-[13px] -right-[2px]",
-              activeUser ? " block" : "hidden"
+              activeUser?.userId === receiverUserId ? " block" : "hidden"
             )}
           ></div>
         </div>
@@ -85,9 +101,11 @@ const ChatUserCard = ({
           <h4 className=" m-0 p-0 font-semibold text-lg leading-[27px] text-textSecondary truncate capitalize">
             {name}
           </h4>
-          <span className=" text-sm font-light leading-[21px] text-[#CFD8DC]">
-            Last seen at 5:32
-          </span>
+          {!(activeUser?.userId === receiverUserId) && (
+            <span className=" text-sm font-light leading-[21px] text-[#CFD8DC]">
+              Last seen at {moment(activeUser?.updatedAt).format("h:mm A")}
+            </span>
+          )}
         </div>
         <div className=" flex flex-col w-[41%] justify-center">
           <span className=" font-semibold text-sm leading-[21px] text-[#cfd8dc] truncate">
