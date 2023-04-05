@@ -16,10 +16,10 @@ import { DashboardMenuItem } from "../subComponents";
 const Sidebar = ({ setOpen }) => {
   const userRole = useUserStatus();
   const navigate = useNavigate();
+  const [loggedInUserId, setLoggedInUserId] = useState(null);
 
   // redux events
   const { user } = useSelector((state) => state?.auth);
-  const { _id: loggedInUserId } = user;
 
   const onClick = () => {
     socket.emit("userRemove", loggedInUserId);
@@ -32,6 +32,12 @@ const Sidebar = ({ setOpen }) => {
       console.log(user);
     });
   }, []);
+
+  useEffect(() => {
+    if (user && user?._id) {
+      setLoggedInUserId(user?._id);
+    }
+  }, [user]);
 
   return (
     <>
