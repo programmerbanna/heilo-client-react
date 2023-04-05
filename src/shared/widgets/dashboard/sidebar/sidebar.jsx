@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 // custom imports
 import { Close, LogoutIcon } from "shared/components/icons";
@@ -8,9 +8,29 @@ import { DashboardMenuItem } from "../subComponents";
 import Logo from "assets/img/logo-white.png";
 import { studentMenus, teacherMenus } from "shared/configs";
 import useUserStatus from "shared/hooks/useUserRole";
+import { useSelector } from "react-redux";
+import socket from "socket.config";
 
 const Sidebar = ({ setOpen }) => {
   const userRole = useUserStatus();
+  const navigate = useNavigate();
+
+  // redux events
+  const { user } = useSelector((state) => state?.auth);
+  const { _id: loggedInUserId } = user;
+
+  const onClick = () => {
+    socket.emit("userRemove", loggedInUserId);
+    localStorage.removeItem("auth");
+    navigate("/login");
+  };
+
+  useEffect(() => {
+    socket.on("getUsers", (user) => {
+      console.log(user);
+    });
+  }, []);
+
   return (
     <>
       <div className="flex flex-col w-full md:w-[253px] h-full">
@@ -40,7 +60,7 @@ const Sidebar = ({ setOpen }) => {
           </ul>
         </nav>
         <div className="pl-[21px] md:pl-0  w-full h-full flex md:justify-center items-end">
-          <button className="flex items-center mr-5">
+          <button className="flex items-center mr-5" onClick={onClick}>
             <div className="flex items-center h-20 px-3 py-5 bg-white rounded-tl-full rounded-tr-full">
               <LogoutIcon width={26} className="text-primaryDark" />
             </div>
