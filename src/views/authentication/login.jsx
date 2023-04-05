@@ -59,13 +59,13 @@ const Login = (Props) => {
       });
 
       // conditions of user role
-      // if (user?.role === "student") {
-      //   navigate("/student/dashboard");
-      // } else if (user?.role === "teacher") {
-      //   navigate("/teacher/dashboard");
-      // } else if (user?.role === "admin") {
-      //   navigate("/admin/dashboard");
-      // }
+      if (user?.role === "student") {
+        navigate("/student/dashboard");
+      } else if (user?.role === "teacher") {
+        navigate("/teacher/dashboard");
+      } else if (user?.role === "admin") {
+        navigate("/admin/dashboard");
+      }
     }
   }, [isSuccess, navigate, isError, error, loginData]);
 
