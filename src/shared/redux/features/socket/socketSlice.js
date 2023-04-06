@@ -10,7 +10,7 @@ console.log("APi url..............", API_URL);
 console.log("scocket url..............", PRODUCTION_SOCKET_URL);
 console.log("NOde env..............", NODE_ENV);
 
-const socket = io(API_URL); // replace with your server URL
+const socket = io("https://chat-server-ikcu.onrender.com/"); // replace with your server URL
 
 export const initSocket = () => {
   socket.on("connect", () => {
